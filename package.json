@@ -1,0 +1,14 @@
+{
+  "name": "testosterone",
+  "description": "Synchronous testing for virile http servers",
+  "version": "0.0.2",
+  "repository": "git://github.com/masylum/testosterone.git",
+  "author": "Pau Ramon Revilla <masylum@gmail.com>",
+  "directories": {
+    "lib": "lib"
+  },
+  "main" : "testosterone/index",
+  "engines": {
+    "node": "*"
+  }
+}

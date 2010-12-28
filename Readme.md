@@ -1,35 +1,46 @@
-# testosterone
+# ✿ Testosterone
 
-This module is under construction.
+Synchronous testing for virile http servers.
 
-        var app = require('./your_http_web_app');
+# ✿ How does it work?
 
-        require('testosterone)(app)
-            .GET('/', function (res) {
-                assert.equal(res.statusCode, 200)
-            ;})
+The core of this library is a shameless copy from [expresso](https://github.com/visionmedia/expresso.git) response assert.
 
-            .POST('/', function (res) {
-                assert.equal(res.statusCode, 500);
-            })
+# ✿ Installation
 
-            .GET('/api/token', [
-                {data: {token: 'foo'}},
-                {data: {token: 'bar'}}
-            ], [
-                {status: 500, body: 'error'},
-                {status: 200, body: 'ok'}
-            ]);
+`npm install testosterone`
 
-        Output =>
+# ✿ Show me the code
 
-            GET  /
-              ✓ 1 assert
+Example:
 
-            POST /
-              ✓ 1 assert
+    var app = require('./app'),
+        testosterone = require('../lib/testosterone')(),
+        assert = testosterone.assert;
 
-            GET  /api/token
-              ✓ 3 assert
+    testosterone
+      .get('/', function (res) {
+        assert.equal(res.statusCode, 200)
+      })
 
-            ✓ OK » 7 viril • 0 pending
+      .get('/hi', function (res) {
+        assert.equal(res.statusCode, 500);
+        assert.equal(res.body, 'use post instead');
+      })
+
+      .post('/hi', {data: {message: 'hola'}}, {
+        status: 200,
+        body: 'hola'
+      });
+
+Then you run it:
+
+    $ node example/test.js
+
+    ✿ Testosterone
+    ✓ ✓ ✓ ✓ ✓
+    » 3 responses, 5 asserts
+
+# ✿ OMG! Synchronooous?
+
+We all know that running tests on parallel is faster, but sometimes is a PITA.
