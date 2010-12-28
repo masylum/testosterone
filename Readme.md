@@ -2,15 +2,15 @@
 
 Synchronous testing for virile http servers.
 
-## ✿ How does it work?
+## ❀ How does it work?
 
 The core of this library is a shameless copy from [expresso](https://github.com/visionmedia/expresso.git) response assert.
 
-## ✿ Installation
+## ❀ Installation
 
 `npm install testosterone`
 
-## ✿ Show me the code
+## ❀ Show me the code
 
 Example:
 
@@ -41,6 +41,6 @@ Then you run it:
     ✓ ✓ ✓ ✓ ✓
     » 3 responses, 5 asserts
 
-## ✿ OMG! Synchronooous?
+## ❀ OMG! Synchronooous?
 
 We all know that running tests on parallel is faster, but sometimes is a PITA.
