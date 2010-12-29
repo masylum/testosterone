@@ -8,12 +8,14 @@ Testosterone is built on nodejs but it allows you to test any http server.
 
 `npm install testosterone`
 
-## Options
+## How does it work?
 
-Testosterone accepts two options:
+Call testosterone with two optional options:
 
 - host _(localhost)_
 - port _(80)_
+
+Use the returned object to do http calls with a sinatra-like-chainable syntax.
 
 If you want the virilest experiencie, replace nodejs assert with `testosterone.assert`
 
