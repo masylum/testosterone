@@ -16,8 +16,8 @@ The core of this library is a shameless copy from [expresso](https://github.com/
 
 Testosterone accepts two options:
 
-    - host _(localhost)_
-    - port _(80)_
+- host _(localhost)_
+- port _(80)_
 
 If you want the virilest experiencie, replace nodejs assert with `testosterone.assert`
 
