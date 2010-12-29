@@ -51,4 +51,4 @@ Then you run it:
 
 ## Credits
 
-The *core* of this library is a shameless copy from [expresso](https://github.com/visionmedia/expresso.git) response assert done by TJ Holowaychuk ([visionmedia](http://github.com/visionmedia))
+The *core* of this library is a shameless copy from [expresso](https://github.com/visionmedia/expresso) response assert done by TJ Holowaychuk ([visionmedia](http://github.com/visionmedia))
