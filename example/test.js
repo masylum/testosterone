@@ -1,5 +1,4 @@
-var app = require('./app'),
-    testosterone = require('testosterone')(),
+var testosterone = require('testosterone')({port: 3000}),
     assert = testosterone.assert;
 
 testosterone
