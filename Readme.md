@@ -1,16 +1,12 @@
 # ✿ Testosterone
 
-Synchronous testing for virile http servers.
+Easy testing for virile http servers.
+
+Testosterone is built on nodejs but it allows you to test any http server.
 
 ## Installation
 
 `npm install testosterone`
-
-## How does it work?
-
-Testosterone is built on nodejs but it allows you to test any http server.
-
-The core of this library is a shameless copy from [expresso](https://github.com/visionmedia/expresso.git) response assert.
 
 ## Options
 
@@ -25,7 +21,7 @@ If you want the virilest experiencie, replace nodejs assert with `testosterone.a
 
 Example:
 
-    var testosterone = require('../lib/testosterone')({post: 3000}),
+    var testosterone = require('testosterone')({post: 3000}),
         assert = testosterone.assert;
 
     testosterone
@@ -51,6 +47,6 @@ Then you run it:
     ✓ ✓ ✓ ✓ ✓
     » 3 responses, 5 asserts
 
-## OMG! Synchronooous?
+## Credits
 
-We all know that running tests on parallel is faster, but sometimes is a PITA.
+The *core* of this library is a shameless copy from [expresso](https://github.com/visionmedia/expresso.git) response assert done by TJ Holowaychuk ([visionmedia](http://github.com/visionmedia))
