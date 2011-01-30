@@ -1,0 +1,290 @@
+<html>
+	<head>
+		<title>testosterone</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<style>body {
+    margin: 0;
+    padding: 0;
+    font: 14px/1.5 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
+    color: #252519;
+}
+a {
+    color: #252519;
+}
+a:hover {
+    text-decoration: underline;
+    color: #19469D;
+}
+p {
+    margin: 12px 0;
+}
+h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+}
+table#source {
+    width: 100%;
+    border-collapse: collapse;
+}
+table#source td:first-child {
+    padding: 30px 40px 30px 40px;
+    vertical-align: top;
+}
+table#source td:first-child,
+table#source td:first-child pre {
+    width: 450px;
+}
+table#source td:last-child {
+    padding: 30px 0 30px 40px;
+    border-left: 1px solid #E5E5EE;
+    background: #F5F5FF;
+}
+table#source tr {
+    border-bottom: 1px solid #E5E5EE;
+}
+table#source tr.filename {
+    padding-top: 40px;
+    border-top: 1px solid #E5E5EE;
+}
+table#source tr.filename td:first-child {
+    text-transform: capitalize;
+}
+table#source tr.filename td:last-child {
+    font-size: 12px;
+}
+table#source tr.filename h2 {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+table#source tr.code h1,
+table#source tr.code h2,
+table#source tr.code h3 {
+    margin-top: 30px;
+    font-family: "Lucida Grande", "Helvetica Nueue", Arial, sans-serif;
+    font-size: 18px;
+}
+table#source tr.code h2 {
+    font-size: 16px;
+}
+table#source tr.code h3 {
+    font-size: 14px;
+}
+table#source tr.code ul {
+    margin: 15px 0 15px 35px;
+    padding: 0;
+}
+table#source tr.code ul li {
+    margin: 0;
+    padding: 1px 0;
+}
+table#source tr.code ul li p {
+    margin: 0;
+    padding: 0;
+}
+table#source tr.code td:first-child pre {
+    padding: 20px;
+}
+#ribbon {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+code .string { color: #219161; }
+code .regexp { color: #219161; }
+code .keyword { color: #954121; }
+code .number { color: #19469D; }
+code .comment { color: #bbb; }
+code .this { color: #19469D; }</style>
+		<script>
+			$(function(){
+				$('tr.code').hide();
+				$('tr.filename').toggle(function(){
+					$(this).nextUntil('.filename').fadeIn();
+				}, function(){
+					$(this).nextUntil('.filename').fadeOut();
+				});
+			});
+		</script>
+	</head>
+	<body>
+<table id="source"><tbody><tr><td><h1>testosterone</h1></td><td></td></tr><tr class="filename"><td><h2 id="lib/testosterone.js"><a href="#">testosterone</a></h2></td><td>lib/testosterone.js</td></tr><tr class="code">
+<td class="docs">
+<p>testosterone - Virile testing for http servers or any nodejs application.
+Copyright(c) 2011 Pau Ramon <a href="mailto:masylum@gmail.com">masylum@gmail.com</a>
+MIT Licensed
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">module</span>.<span class="variable">exports</span> = <span class="keyword">function</span> (<span class="variable">config</span>) {
+  <span class="variable">require</span>(<span class="string">'colors'</span>);
+
+  <span class="keyword">var</span> <span class="variable">_sys</span> = <span class="variable">require</span>(<span class="string">'sys'</span>),
+
+      <span class="variable">_specs</span> = <span class="variable">require</span>(<span class="string">'funk'</span>)(),
+      <span class="variable">_finished</span> = <span class="variable">require</span>(<span class="string">'funk'</span>)(),
+
+      <span class="variable">_config</span> = <span class="variable">config</span> || {},
+      <span class="variable">_client</span> = <span class="variable">require</span>(<span class="string">'http'</span>).<span class="variable">createClient</span>(
+        <span class="variable">_config</span>.<span class="variable">port</span> || <span class="number integer">80</span>,
+        <span class="variable">_config</span>.<span class="variable">host</span> || <span class="string">'localhost'</span>
+      ),
+
+      <span class="variable">_count_responses</span> = <span class="number integer">0</span>,
+      <span class="variable">_done_responses</span> = <span class="number integer">0</span>,
+
+      <span class="variable">_count_asserts</span> = <span class="number integer">0</span>,
+      <span class="variable">_passed_asserts</span> = <span class="number integer">0</span>,
+
+      <span class="class">TESTOSTERONE</span> = {},
+
+      <span class="variable">_assert</span> = (<span class="keyword">function</span> () {
+        <span class="keyword">var</span> <span class="variable">assert</span> = <span class="variable">require</span>(<span class="string">'assert'</span>),
+            <span class="variable">functions</span> = <span class="class">Object</span>.<span class="variable">keys</span>(<span class="variable">assert</span>),
+            <span class="variable">a</span> = {};
+
+        <span class="variable">functions</span>.<span class="variable">forEach</span>(<span class="keyword">function</span> (<span class="variable">fn</span>) {
+          <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="variable">require</span>(<span class="string">'assert'</span>)[<span class="variable">fn</span>] === <span class="string">'function'</span>) {
+            <span class="variable">a</span>[<span class="variable">fn</span>] = <span class="keyword">function</span> (<span class="variable">_</span>) {
+              <span class="variable">_count_asserts</span> += <span class="number integer">1</span>;
+              <span class="keyword">try</span> {
+                <span class="variable">require</span>(<span class="string">'assert'</span>)[<span class="variable">fn</span>].<span class="variable">apply</span>(<span class="this">this</span>, <span class="class">Array</span>.<span class="variable">prototype</span>.<span class="variable">slice</span>.<span class="variable">call</span>(<span class="variable">arguments</span>, <span class="number integer">0</span>));
+              } <span class="keyword">catch</span> (<span class="variable">exc</span>) {
+                <span class="variable">_sys</span>.<span class="variable">print</span>((<span class="string">'\n✗ =&gt; '</span> + <span class="variable">exc</span>.<span class="variable">stack</span> + <span class="string">'\n'</span>).<span class="variable">red</span>);
+                <span class="variable">process</span>.<span class="variable">exit</span>();
+              }
+              <span class="variable">_passed_asserts</span> += <span class="number integer">1</span>;
+              <span class="variable">_sys</span>.<span class="variable">print</span>(<span class="string">'✓ '</span>.<span class="variable">green</span>);
+            };
+          }
+        });
+
+        <span class="keyword">return</span> <span class="variable">a</span>;
+      }()),</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Does a testable http call</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  [route=undefined]</p><p>http uri to test</p></li><li><p><strong>param</strong>: <em>Object</em>  [req=undefined]</p><p>Object containing request related attributes like headers or body.</p></li><li><p><strong>param</strong>: <em>Object</em>  [res=undefined]</p><p>Object to compare with the response of the http call</p></li><li><p><strong>param</strong>: <em>Function</em>  [cb=undefined]</p><p>Callback that will be called after the http call. Receives the http response object.</p></li><li><p><strong>return</strong>: <em>s</em></p><p>Testosterone, so you can chain http calls.</p></li></ul>
+</td>
+<td class="code">
+<pre><code>[<span class="string">'get'</span>, <span class="string">'post'</span>, <span class="string">'head'</span>, <span class="string">'put'</span>, <span class="string">'delete'</span>, <span class="string">'trace'</span>, <span class="string">'options'</span>, <span class="string">'connect'</span>].<span class="variable">forEach</span>(<span class="keyword">function</span> (<span class="variable">http_method</span>) {
+    <span class="comment">// refactor this a little bit</span>
+    <span class="class">TESTOSTERONE</span>[<span class="variable">http_method</span>] = <span class="keyword">function</span> (<span class="variable">route</span>, <span class="variable">req</span>, <span class="variable">res</span>, <span class="variable">cb</span>) {
+      <span class="variable">_count_responses</span> += <span class="number integer">1</span>;
+      <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="variable">req</span> === <span class="string">'function'</span>) {
+        <span class="variable">cb</span> = <span class="variable">req</span>;
+        <span class="variable">res</span> = {};
+        <span class="variable">req</span> = {};
+      }
+
+      <span class="variable">req</span>.<span class="variable">method</span> = <span class="variable">http_method</span>.<span class="variable">toUpperCase</span>();
+      <span class="variable">req</span>.<span class="variable">url</span> = <span class="variable">req</span>.<span class="variable">url</span> || <span class="variable">route</span>;
+      <span class="variable">_call</span>(<span class="variable">req</span>, <span class="variable">res</span>, <span class="variable">cb</span>);
+
+      <span class="keyword">return</span> <span class="class">TESTOSTERONE</span>;
+    };
+  });</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Adds a function to be called either serial or parallel</p>
+
+<ul><li><strong>se</strong>: <em>e</em>
+#serial</li><li><strong>se</strong>: <em>e</em>
+#parallel</li></ul>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  [spec='']</p><p>Specification. Will be printer once <code>resolved</code> is called.</p></li><li><p><strong>param</strong>: <em>Function</em>  [resolved=undefined]</p><p>This function prints the spec and also tracks if the test is resolved.
+This allows to work with asyncronous tests.</p></li><li><p><strong>return</strong>: <em>s</em></p><p>Testosterone, so you can chain http calls.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">TESTOSTERONE</span>.<span class="variable">add</span> = <span class="keyword">function</span> (<span class="variable">spec</span>, <span class="variable">resolved</span>) {
+    <span class="variable">_specs</span>.<span class="variable">add</span>(<span class="keyword">function</span> () {
+      <span class="variable">resolved</span>.<span class="variable">call</span>(<span class="variable">resolved</span>, <span class="keyword">function</span> (<span class="variable">fn</span>) {
+        <span class="keyword">if</span> (<span class="variable">fn</span>) {
+          <span class="keyword">return</span> <span class="variable">_finished</span>.<span class="variable">add</span>(<span class="keyword">function</span> () {
+            <span class="keyword">if</span> (!<span class="variable">_config</span>.<span class="variable">quiet</span>) {
+              <span class="variable">_sys</span>.<span class="variable">print</span>(<span class="string">'\n'</span> + <span class="variable">spec</span>.<span class="variable">grey</span> + <span class="string">'\n'</span>);
+            }
+            <span class="variable">fn</span>.<span class="variable">apply</span>(<span class="variable">fn</span>, <span class="variable">arguments</span>);
+          });
+        } <span class="keyword">else</span> {
+          <span class="comment">// this is hackish</span>
+          <span class="variable">_finished</span>.<span class="variable">add</span>(<span class="keyword">function</span> () {})();
+          <span class="variable">_sys</span>.<span class="variable">print</span>(<span class="string">'\n'</span> + <span class="variable">spec</span>.<span class="variable">grey</span> + <span class="string">'\n'</span>);
+        }
+      });
+    })();
+
+    <span class="keyword">return</span> <span class="class">TESTOSTERONE</span>;
+  };</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Runs all the added tests in serial.</p>
+
+<ul><li><strong>se</strong>: <em>e</em>
+#add</li><li><strong>se</strong>: <em>e</em>
+#parallel</li></ul>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>Function</em>  [cb=undefined]</p><p>Callback that is run after all the <code>resolved</code> callbacks are run.</p></li><li><p><strong>return</strong>: <em>s</em></p><p>Testosterone, so you can chain http calls.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">TESTOSTERONE</span>.<span class="variable">serial</span> = <span class="keyword">function</span> (<span class="variable">cb</span>) {
+    <span class="variable">_specs</span>.<span class="variable">serial</span>(<span class="keyword">function</span> () {
+      <span class="variable">_finished</span>.<span class="variable">parallel</span>(<span class="keyword">function</span> () {
+        <span class="variable">cb</span>.<span class="variable">call</span>(<span class="variable">cb</span>, <span class="variable">arguments</span>);
+        <span class="variable">_test</span>();
+      });
+    });
+
+    <span class="keyword">return</span> <span class="class">TESTOSTERONE</span>;
+  };</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Runs all the added tests in parallel.</p>
+
+<ul><li><strong>se</strong>: <em>e</em>
+#add</li><li><strong>se</strong>: <em>e</em>
+#serial</li></ul>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>Function</em>  [cb=undefined]</p><p>Callback that is run after all the <code>resolved</code> callbacks are run.</p></li><li><p><strong>return</strong>: <em>s</em></p><p>Testosterone, so you can chain http calls.</p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">TESTOSTERONE</span>.<span class="variable">parallel</span> = <span class="keyword">function</span> (<span class="variable">cb</span>) {
+    <span class="variable">_specs</span>.<span class="variable">parallel</span>(<span class="keyword">function</span> () {
+      <span class="variable">_finished</span>.<span class="variable">parallel</span>(<span class="keyword">function</span> () {
+        <span class="variable">cb</span>.<span class="variable">call</span>(<span class="variable">cb</span>, <span class="variable">arguments</span>);
+        <span class="variable">_test</span>();
+      });
+    });
+
+    <span class="keyword">return</span> <span class="class">TESTOSTERONE</span>;
+  };
+
+  <span class="class">TESTOSTERONE</span>.<span class="variable">assert</span> = <span class="variable">_assert</span>;
+
+  <span class="keyword">if</span> (!<span class="variable">_config</span>.<span class="variable">quiet</span>) {
+    <span class="variable">_sys</span>.<span class="variable">print</span>((<span class="string">'✿ '</span> + (<span class="variable">_config</span>.<span class="variable">title</span> || <span class="string">'Testosterone'</span>) + <span class="string">' : '</span>).<span class="variable">yellow</span>);
+  }
+
+  <span class="keyword">return</span> <span class="class">TESTOSTERONE</span>;
+};
+</code></pre>
+</td>
+</tr>	</body>
+</html></tbody></table>
