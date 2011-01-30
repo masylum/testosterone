@@ -7,6 +7,7 @@
   "directories": {
     "lib": "lib"
   },
+  "dependencies": {"funk": ">=1.0.1", "colors": ">=0.3.0"},
   "main" : "index",
   "engines": {
     "node": "*"
