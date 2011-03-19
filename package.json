@@ -1,15 +1,11 @@
 {
   "name": "testosterone",
   "description": "Virile testing for http servers or any nodejs application",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "repository": "git://github.com/masylum/testosterone.git",
   "author": "Pau Ramon Revilla <masylum@gmail.com>",
-  "directories": {
-    "lib": "lib"
-  },
+  "directories": { "lib": "lib" },
   "dependencies": {"funk": ">=1.0.1", "colors": ">=0.3.0"},
   "main" : "index",
-  "engines": {
-    "node": "*"
-  }
+  "engines": { "node": "*" }
 }

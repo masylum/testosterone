@@ -1,12 +1,9 @@
 NODE = node
 
-test: test_api test_parallel test_serial test_stubs
+test: test_api test_serial test_stubs test_sync
 
 test_api:
 	@$(NODE) tests/test.js
-
-test_parallel:
-	@$(NODE) tests/parallel.js
 
 test_serial:
 	@$(NODE) tests/serial.js
@@ -14,7 +11,7 @@ test_serial:
 test_stubs:
 	@$(NODE) tests/stubs.js
 
-test_app:
-	@$(NODE) tests/app.js
+test_sync:
+	@$(NODE) tests/sync.js
 
 .PHONY: test

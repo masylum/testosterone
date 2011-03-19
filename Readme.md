@@ -13,35 +13,26 @@ Testosterone is built on nodejs but it allows you to test any http server.
 Testosterone allows you to follow BDD or TDD on any of your projects using
 the same testing library.
 
-You can run your tests in parallel or serial. Running tests in parallel can
-be a painful experience if you use stubs.
-
 ## Options
 
 - `host` _(localhost)_ : Host to do the http calls.
 - `port` _(80)_ : Host to do the http calls.
 - `quiet` _(false)_ : Ninja mode.
 - `title` _(Testosteron)_ : Test title, it will be printed out.
+- `sync` _(false)_ : If set to true, you don't need to specify when your tests are done as they run synchronously.
 
 ## API
 
 _testosterone_ is simple and flexible.
 
 - `get|post|head|put|delete...(url, req, response, cb)`: Does a http call with the given request. If a response is given, testosterone will assert that the real response matches.
-- `add(spec, resolve)`: Adds a test. The `spec` will be printed when `resolve` function is called. You can use `resolve` to curry a function.
-- `serial(cb)`: Runs the tests in serial, if you use stubs this options will be very handy. `cb` will be called once all the `resolve` functions are executed.
-- `parallel(cb)`: Runs the tests in parallel. `cb` will be called once all the `resolve` functions are executed.
+- `add(spec, done)`: Adds a test. The `spec` will be printed when `done` function is called. You can use `done` to curry a function.
+- `run(cb)`: Runs the tests in serial. `cb` will be called once all the `done` functions are executed.
 - `assert`: Using this assert object instead of the native one will allow you to count and print the assertions.
-
-## Usage
-
-Use the returned object to do http calls with a sinatra-like-chainable syntax.
-
-If you want the virilest experiencie, use `testosterone.assert` instead of the native assert.
 
 ## Show me the code
 
-Chained example:
+HTTP testing example:
 
     var testosterone = require('testosterone')({post: 3000}),
         assert = testosterone.assert;
@@ -68,9 +59,9 @@ Chained example:
     ✿ Testosterone : ✓ ✓ ✓ ✓ ✓
     » 3 responses, 5 asserts
 
-Serial example with [gently](https://github.com/felixge/node-gently.git) stubbing:
+Example with [gently](https://github.com/felixge/node-gently.git) stubbing and `sync: true`:
 
-    var testosterone = require('testosterone')({post: 3000, title: 'Testing with stubs'}),
+    var testosterone = require('testosterone')({post: 3000, title: 'Testing with stubs', sync: true}),
         gently = new (require('gently')),
         fs = require('fs'),
         assert = testosterone.assert;
@@ -82,7 +73,6 @@ Serial example with [gently](https://github.com/felixge/node-gently.git) stubbin
           cb(null, null);
         });
 
-        spec();
         fs.readFile('foo.txt', 'utf-8', function (er, data) {
           assert.equal(er, null);
           assert.equal(data, null);
@@ -95,14 +85,13 @@ Serial example with [gently](https://github.com/felixge/node-gently.git) stubbin
           cb(null, 'foo');
         });
 
-        spec();
         fs.readFile('foo.txt', 'utf-8', function (er, data) {
           assert.equal(er, null);
           assert.equal(data, 'foo');
         });
       })
 
-      .serial(function () {
+      .run(function () {
         require('sys').print('done!');
       });
 
@@ -111,15 +100,15 @@ Serial example with [gently](https://github.com/felixge/node-gently.git) stubbin
     $ node test.js
 
     ✿ Testing with stubs :
+
     GIVEN foo.txt
     WHEN its empty
-    THEN it return null
-    ✓ ✓ ✓
+    THEN it return null => ✓ ✓ ✓
 
     GIVEN foo.txt
     WHEN it have content
-    THEN it return that content
-    ✓ ✓ ✓
+    THEN it return that content => ✓ ✓ ✓
+
     » 0 responses, 6 asserts
 
 ## Test
