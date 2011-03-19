@@ -1,7 +1,7 @@
 var express = require('express'),
     app = express.createServer();
 
-app.use(express.bodyDecoder());
+app.use(express.bodyParser());
 
 app.get('/', function (req, res) {
   setTimeout(function () {
