@@ -13,26 +13,30 @@ Testosterone is built on nodejs but it allows you to test any http server.
 Testosterone allows you to follow BDD or TDD on any of your projects using
 the same testing library.
 
+<img src = "https://github.com/masylum/testosterone/raw/master/testosterone.png" border = "0" />
+
 ## Options
 
 - `host` _(localhost)_ : Host to do the http calls.
 - `port` _(80)_ : Host to do the http calls.
 - `quiet` _(false)_ : Ninja mode.
-- `title` _(Testosteron)_ : Test title, it will be printed out.
-- `sync` _(false)_ : If set to true, you don't need to specify when your tests are done as they run synchronously.
+- `title` _(Testosterone)_ : Test title, it will be printed out.
+- `sync` _(false)_ : If set to true, you don't need to call `done` to specify when your tests are executed.
 
 ## API
 
 _testosterone_ is simple and flexible.
 
 - `get|post|head|put|delete...(url, req, response, cb)`: Does a http call with the given request. If a response is given, testosterone will assert that the real response matches.
-- `add(spec, done)`: Adds a test. The `spec` will be printed when `done` function is called. You can use `done` to curry a function.
-- `run(cb)`: Runs the tests in serial. `cb` will be called once all the `done` functions are executed.
+- `add(spec, function(done))`: Adds a test. The test is considered executed and `spec` will be printed when `done` function is called. You can use `done` to curry a function.
+- `run(cb)`: Runs the tests in serial. `cb` will be called once all the tests are executed.
 - `assert`: Using this assert object instead of the native one will allow you to count and print the assertions.
 
 ## Show me the code
 
-HTTP testing example:
+You have more examples on the `test` folder:
+
+### HTTP testing example:
 
     var testosterone = require('testosterone')({post: 3000}),
         assert = testosterone.assert;
@@ -59,7 +63,47 @@ HTTP testing example:
     ✿ Testosterone : ✓ ✓ ✓ ✓ ✓
     » 3 responses, 5 asserts
 
-Example with [gently](https://github.com/felixge/node-gently.git) stubbing and `sync: true`:
+### Asynchronous example:
+
+    var testosterone = require('testosterone')({post: 3000, title: 'Testing async'}),
+        gently = new (require('gently')),
+        assert = testosterone.assert;
+
+    testosterone
+
+      // using done to tell testosterone when the test is done
+      .add('First test', function (done) {
+        setTimeout(function () {
+          assert.ok(true);
+          done();
+        }, 999);
+      })
+
+      // same but currying
+      .add('Second test', function (spec) {
+        assert.ok(true);
+
+        setTimeout(done(function () {
+          assert.ok(true);
+        }), 10);
+      })
+
+      .run(function () {
+        require('sys').print('done!');
+      });
+
+    // Output
+
+    $ node test.js
+
+    ✿ Testing async :
+
+    First test => ✓
+    Second test => ✓ ✓
+
+    » 0 responses, 3 asserts
+
+### Example with [gently](https://github.com/felixge/node-gently.git) stubbing and `sync: true`:
 
     var testosterone = require('testosterone')({post: 3000, title: 'Testing with stubs', sync: true}),
         gently = new (require('gently')),

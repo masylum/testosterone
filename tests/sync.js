@@ -1,4 +1,4 @@
-var testosterone = require('../lib/testosterone')({port: 3000, title: 'Testing synchronous', async: false}),
+var testosterone = require('../lib/testosterone')({port: 3000, title: 'Testing synchronous', sync: true}),
     add = testosterone.add,
     order = 0,
     assert = testosterone.assert;
@@ -37,6 +37,6 @@ testosterone
     }
   )
 
-  .serial(function () {
+  .run(function () {
     require('sys').print('done!');
   });

@@ -48,6 +48,6 @@ testosterone
     }
   )
 
-  .serial(function () {
+  .run(function () {
     require('sys').print('done!');
   });

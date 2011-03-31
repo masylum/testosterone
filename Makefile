@@ -2,6 +2,9 @@ NODE = node
 
 test: test_api test_serial test_stubs test_sync
 
+test_app:
+	@$(NODE) tests/app.js
+
 test_api:
 	@$(NODE) tests/test.js
 
