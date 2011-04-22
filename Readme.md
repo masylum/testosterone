@@ -29,6 +29,8 @@ _testosterone_ is simple and flexible.
 
 - `get|post|head|put|delete...(url, req, response, cb)`: Does a http call with the given request. If a response is given, testosterone will assert that the real response matches.
 - `add(spec, function(done))`: Adds a test. The test is considered executed when `done` function is called. You can use `done` to curry a function.
+- `before(function)`: Listener for fired events before a test runs.
+- `after(function)`: Listener for fired events after a test runs.
 - `run(cb)`: Runs the tests in serial. `cb` will be called once all the tests are executed.
 - `assert`: Using this assert object instead of the native one will allow you to count and print the assertions.
 
@@ -70,6 +72,10 @@ You have more examples on the `test` folder:
         assert = testosterone.assert;
 
     testosterone
+
+      .before(function () {
+        console.log('test about to run!');
+      })
 
       // using done to tell testosterone when the test is done
       .add('First test', function (done) {
