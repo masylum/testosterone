@@ -20,6 +20,4 @@ testosterone
     }), 200);
   })
 
-  .run(function () {
-    require('sys').print('done!');
-  });
+  .run();
