@@ -1,6 +1,6 @@
 NODE = node
 
-test: test_api test_serial test_stubs test_sync
+test: test_api test_serial test_stubs test_sync test_async
 
 test_app:
 	@$(NODE) tests/app.js
