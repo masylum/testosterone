@@ -17,4 +17,7 @@ test_stubs:
 test_sync:
 	@$(NODE) tests/sync.js
 
+test_async:
+	@$(NODE) tests/async.js
+
 .PHONY: test

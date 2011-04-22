@@ -21,14 +21,14 @@ the same testing library.
 - `port` _(80)_ : Host to do the http calls.
 - `quiet` _(false)_ : Ninja mode.
 - `title` _(Testosterone)_ : Test title, it will be printed out.
-- `sync` _(false)_ : If set to true, you don't need to call `done` to specify when your tests are executed.
+- `sync` _(false)_ : If set to true, you don't need to call `done` to specify when your tests are done.
 
 ## API
 
 _testosterone_ is simple and flexible.
 
 - `get|post|head|put|delete...(url, req, response, cb)`: Does a http call with the given request. If a response is given, testosterone will assert that the real response matches.
-- `add(spec, function(done))`: Adds a test. The test is considered executed and `spec` will be printed when `done` function is called. You can use `done` to curry a function.
+- `add(spec, function(done))`: Adds a test. The test is considered executed when `done` function is called. You can use `done` to curry a function.
 - `run(cb)`: Runs the tests in serial. `cb` will be called once all the tests are executed.
 - `assert`: Using this assert object instead of the native one will allow you to count and print the assertions.
 
@@ -89,7 +89,7 @@ You have more examples on the `test` folder:
       })
 
       .run(function () {
-        require('sys').print('done!');
+        require('sys').print('All tests passed!');
       });
 
     // Output
