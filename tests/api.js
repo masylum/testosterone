@@ -1,5 +1,5 @@
-var testosterone = require('../lib/testosterone')({port: 3000}),
-    assert = testosterone.assert;
+var testosterone = require('../lib/testosterone')({port: 3000})
+  , assert = testosterone.assert;
 
 testosterone
   // test async get

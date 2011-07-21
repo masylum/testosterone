@@ -1,7 +1,9 @@
-var testosterone = require('../lib/testosterone')({port: 3000, title: 'Testing synchronous', sync: true}),
-    add = testosterone.add,
-    order = 0,
-    assert = testosterone.assert;
+var testosterone = require('../lib/testosterone')({ port: 3000
+                                                  , title: 'Testing synchronous'
+                                                  , output: {specs: false}
+                                                  , sync: true
+                                                  })
+  , assert = testosterone.assert;
 
 testosterone
   .add(
@@ -38,5 +40,5 @@ testosterone
   )
 
   .run(function () {
-    require('sys').print('done!');
+    console.log('done!');
   });

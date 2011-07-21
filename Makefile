@@ -6,7 +6,7 @@ test_app:
 	@$(NODE) tests/app.js
 
 test_api:
-	@$(NODE) tests/test.js
+	@$(NODE) tests/api.js
 
 test_serial:
 	@$(NODE) tests/serial.js

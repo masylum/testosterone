@@ -5,7 +5,14 @@
   "repository": "git://github.com/masylum/testosterone.git",
   "author": "Pau Ramon Revilla <masylum@gmail.com>",
   "directories": { "lib": "lib" },
-  "dependencies": {"colors": ">=0.3.0"},
+  "dependencies": {
+    "colors": ">=0.3.0",
+    "underscore": "1.1.7"
+  },
+  "devDependencies": {
+    "express": "2.4.3",
+    "gently": "0.9.1"
+  },
   "main" : "index",
   "engines": { "node": "*" }
 }

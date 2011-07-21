@@ -1,7 +1,7 @@
-var testosterone = require('./..')({post: 3000, title: 'Testing with stubs', quiet: true}),
-    gently = new (require('gently')),
-    fs = require('fs'),
-    assert = testosterone.assert;
+var testosterone = require('./..')({post: 3000, title: 'Testing with stubs', quiet: true})
+  , gently = new (require('gently'))
+  , fs = require('fs')
+  , assert = testosterone.assert;
 
 testosterone
   .add('GIVEN foo.txt \nWHEN its empty \nTHEN it return null', function (next) {

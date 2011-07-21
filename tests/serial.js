@@ -1,7 +1,7 @@
-var testosterone = require('../lib/testosterone')({port: 3000, title: 'Core Testosterone'}),
-    add = testosterone.add,
-    order = 0,
-    assert = testosterone.assert;
+var testosterone = require('../lib/testosterone')({port: 3000, title: 'Core Testosterone'})
+  , add = testosterone.add
+  , order = 0
+  , assert = testosterone.assert;
 
 testosterone
   .add(

@@ -1,5 +1,5 @@
-var express = require('express'),
-    app = express.createServer();
+var express = require('express')
+  , app = express.createServer();
 
 app.use(express.bodyParser());
 
@@ -27,6 +27,7 @@ app.post('/hi', function (req, res) {
   }, 100);
 });
 
+console.log('Listening ...');
 app.listen(3000);
 
 module.exports = app;
