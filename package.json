@@ -1,7 +1,7 @@
 {
   "name": "testosterone",
   "description": "Virile testing for http servers or any nodejs application",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "repository": "git://github.com/masylum/testosterone.git",
   "author": "Pau Ramon Revilla <masylum@gmail.com>",
   "directories": { "lib": "lib" },
