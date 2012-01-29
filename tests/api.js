@@ -1,12 +1,15 @@
 var testosterone = require('../lib/testosterone')({port: 3000})
   , assert = testosterone.assert;
 
-testosterone
+// test memory leaks
+(Array(10).join('.').split('')).forEach(function () {
   // test async get
-  .get('/', function (res) {
+  testosterone.get('/', function (res) {
     assert.equal(res.statusCode, 200);
-  })
+  });
+});
 
+testosterone
   // test sync get
   .get('/hi', function (res) {
     assert.equal(res.statusCode, 500);
